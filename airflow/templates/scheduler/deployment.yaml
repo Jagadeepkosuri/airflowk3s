@@ -201,7 +201,7 @@ spec:
         - name: azurefileshare-plugin
           hostPath:
             path: /mnt/airflow-plugins/vol-plugins
-        - name: azurefileshare-log
+        - name: azurefileshare-logs
           hostPath:
             path: /mnt/airflow-logs/vol-logs
         - name: azurefileshare-test
