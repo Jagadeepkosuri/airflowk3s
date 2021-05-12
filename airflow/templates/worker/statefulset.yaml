@@ -212,30 +212,20 @@ spec:
       volumes:
       {{- if .Values.airflow.externalmount.azurefileshare }}
         - name: azurefileshare-dag
-          azureFile:
-            secretName: {{ .Values.airflow.storageaccount.secret }}
-            shareName: {{ .Values.airflow.azurefileshare.dags }}
-            readOnly: false
+          hostPath:
+            path: /mnt/airflow-dag/vol-dags
         - name: azurefileshare-plugin
-          azureFile:
-            secretName: {{ .Values.airflow.storageaccount.secret }}
-            shareName: {{ .Values.airflow.azurefileshare.plugins }}
-            readOnly: false
+          hostPath:
+            path: /mnt/airflow-plugins/vol-plugins
+        - name: azurefileshare-log
+          hostPath:
+            path: /mnt/airflow-logs/vol-logs
         - name: azurefileshare-test
-          azureFile:
-            secretName: {{ .Values.airflow.storageaccount.secret }}
-            shareName: {{ .Values.airflow.azurefileshare.test }}
-            readOnly: false
-        - name: azurefileshare-logs
-          azureFile:
-            secretName: {{ .Values.airflow.storageaccount.secret }}
-            shareName: {{ .Values.airflow.azurefileshare.logs }}
-            readOnly: false
+          hostPath:
+            path: /mnt/airflow-tests/vol-tests
         - name: azurefileshare-requirement
-          azureFile:
-            secretName: {{ .Values.airflow.storageaccount.secret }}
-            shareName: {{ .Values.airflow.azurefileshare.requirement }}
-            readOnly: false
+          hostPath:
+            path: /mnt/requirement/requirement
       {{- end }}
       {{- if .Values.dagsConfigMap }}
         - name: external-dag-files
